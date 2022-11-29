@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">OpenWeather MVVM Retrofit Demo</string>
+    <string name="citySearchHint">Add new city…</string>
+    <string name="citySearchBtnText">Search</string>
+    <string name="search_hint">Search with patterns like \"Cairo, Egypt\"</string>
+    <string name="cityNamePlaceholder">City, Country</string>
+    <string name="weatherIconContentDescription">Icon mimicking current weather</string>
+    <string name="weatherMainPlaceholder">N/A</string>
+    <string name="weatherDescriptionPlaceholder">Weather Description</string>
+    <string name="temperaturePlaceholder">Current: …</string>
+    <string name="feelsLikePlaceholder">Feels like: …</string>
+    <string name="tempMinMaxPlaceholder">Min / Max</string>
+    <string name="remove">Remove</string>
+    <string name="update">Update</string>
+    <string name="updateTimestampPlaceholder">Last updated at …</string>
+    <string name="pressure">Pressure: …</string>
+    <string name="humidity">Humidity: …</string>
+</resources>
