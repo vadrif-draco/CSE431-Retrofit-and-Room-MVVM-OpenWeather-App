@@ -5,6 +5,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 
 @Entity(
     tableName = "weather_aux",
@@ -15,6 +16,9 @@ import androidx.room.ForeignKey;
                     parentColumns = {"name", "country"},
                     childColumns = {"gName", "gCountry"},
                     deferred = true)
+    },
+    indices = {
+        @Index({"gName", "gCountry"})
     }
 )
 public class WeatherDataAuxPOJO4RDB {

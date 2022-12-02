@@ -81,7 +81,8 @@ public class WeatherDataInsertCallback implements Callback<WeatherDataPOJO4RF> {
               GeocodingDataPOJOConverter.toRoomPOJO(cityGeocodingData),
               WeatherDataPOJOConverter.toRoomPOJO(weatherData)
           );
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+          e.printStackTrace();
         }
 
         if (cbk_r_fun != null) cbk_r_fun.respond(cityGeocodingData.name + " has been added");

@@ -1,10 +1,13 @@
 package com.example.openweathermvvmretrofitdemo;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -40,7 +43,11 @@ public class MainActivity extends AppCompatActivity {
     binding.recyclerView.setAdapter(adapter);
 
     viewModel = new ViewModelProvider(this).get(MyViewModel.class);
-    viewModel.getWeatherData().observe(this, adapter::set);
+    viewModel.getWeatherData().observe(this, (weatherData) -> {
+      adapter.set(weatherData);
+      binding.recyclerView.setVisibility(weatherData.size() > 0 ? View.VISIBLE : View.GONE);
+      binding.noCitiesPrompt.setVisibility(weatherData.size() > 0 ? View.GONE : View.VISIBLE);
+    });
 
     // Create and attach swipe helper to recycler view
     ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -52,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
       @Override public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
         WeatherCardListAdapter.WeatherCardViewHolder v = (WeatherCardListAdapter.WeatherCardViewHolder) viewHolder;
         if (direction == ItemTouchHelper.LEFT) {
-          if ((System.currentTimeMillis() / 1000L - v.weatherData.aux.dt) < Constants.WEATHER_UPDATE_INTERVAL) {
+          if ((System.currentTimeMillis() / 1000L - v.weatherData.aux.dt) < Constants.INTERNAL_WEATHER_UPDATE_INTERVAL) {
             Toast.makeText(getApplicationContext(), "Current data is already up-to-date", Toast.LENGTH_SHORT).show();
           } else {
             viewModel.updateWeather(
@@ -125,6 +132,16 @@ public class MainActivity extends AppCompatActivity {
 
     });
 
+    root.setOnTouchListener(this::editTextDiscard);
+    binding.recyclerView.setOnTouchListener(this::editTextDiscard);
+
+  }
+
+  private boolean editTextDiscard(View v, MotionEvent event) {
+    InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+    binding.citySearchET.clearFocus();
+    return v.performClick();
   }
 
 }

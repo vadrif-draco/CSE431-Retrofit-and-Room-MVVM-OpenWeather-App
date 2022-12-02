@@ -17,12 +17,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class WeatherUpdateCallback implements Callback<WeatherDataPOJO4RF> {
+public class WeatherDataUpdateCallback implements Callback<WeatherDataPOJO4RF> {
 
   private final CallbackResponseFunction cbk_r_fun;
   private final long previous_dt;
 
-  public WeatherUpdateCallback(@Nullable CallbackResponseFunction cbk_r_fun, long previous_dt) {
+  public WeatherDataUpdateCallback(@Nullable CallbackResponseFunction cbk_r_fun, long previous_dt) {
     this.cbk_r_fun = cbk_r_fun;
     this.previous_dt = previous_dt;
   }
@@ -51,17 +51,23 @@ public class WeatherUpdateCallback implements Callback<WeatherDataPOJO4RF> {
               try {
                 if (w.aux.dt > previous_dt) {
                   MyRepository.getRepository().insertGeocodingAndWeatherData(geocodingData.get(0), w);
-                  if (cbk_r_fun != null) cbk_r_fun.respond("Weather information has been updated");
+                  if (cbk_r_fun != null)
+                    cbk_r_fun.respond("Weather information has been updated for " + geocodingData.get(0).name);
                 } else {
-                  if (cbk_r_fun != null) cbk_r_fun.respond("No recent updates, try again later");
+                  if (cbk_r_fun != null)
+                    cbk_r_fun.respond("No recent updates for " + geocodingData.get(0).name + ", try again later");
                 }
-              } catch (Exception ignored) {
+              } catch (Exception e) {
+                e.printStackTrace();
+                if (cbk_r_fun != null)
+                  cbk_r_fun.respond("An internal error has occurred, please remove this city and add it again");
               }
               g.removeObserver(this);
             }
           };
           g.observeForever(o);
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+          e.printStackTrace();
         }
 
       }

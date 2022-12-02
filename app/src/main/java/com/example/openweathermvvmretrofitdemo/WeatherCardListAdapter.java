@@ -49,10 +49,11 @@ public class WeatherCardListAdapter extends RecyclerView.Adapter<WeatherCardList
       holder.weatherData = weatherDataList.get(position);
       if (holder.weatherData.weather.size() != 0) {
         WeatherDataWeatherInstancePOJO4RDB currentWeather = holder.weatherData.weather.get(0);
-        String url = "https://openweathermap.org/img/wn/" + currentWeather.icon + "@4x.png";
-        Log.d(Constants.TAG, "Picasso: " + url);
+        String url = "https://openweathermap.org/img/wn/" + currentWeather.weatherInstanceIconId + "@4x.png";
+        Log.d(Constants.TAG, url + " :: Picasso for " + holder.weatherData.aux.gName);
         Picasso.get().load(url).into(holder.weatherCardBinding.weatherIcon);
-        holder.weatherCardBinding.weatherMain.setText(currentWeather.main + " (" + currentWeather.description + ")");
+        holder.weatherCardBinding.weatherMain.setText(currentWeather.main);
+        holder.weatherCardBinding.weatherDescription.setText(currentWeather.description);
       }
       holder.weatherCardBinding.cityName.setText(holder.weatherData.aux.gName + ", " + CountryCode.getByCode(holder.weatherData.aux.gCountry).getName());
       holder.weatherCardBinding.temp.setText("Current: " + Math.round(holder.weatherData.aux.main.temp - 273) + "°C");
@@ -76,4 +77,5 @@ public class WeatherCardListAdapter extends RecyclerView.Adapter<WeatherCardList
   @Override public long getItemId(int position) {
     return weatherDataList.get(position).aux.auxId;
   }
+
 }

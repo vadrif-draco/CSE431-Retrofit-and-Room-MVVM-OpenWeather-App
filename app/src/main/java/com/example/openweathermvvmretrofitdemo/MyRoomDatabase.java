@@ -8,17 +8,15 @@ import androidx.room.RoomDatabase;
 
 import com.example.openweathermvvmretrofitdemo.POJOs.ForRoomDB.GeocodingDataPOJO4RDB;
 import com.example.openweathermvvmretrofitdemo.POJOs.ForRoomDB.WeatherDataAuxPOJO4RDB;
-import com.example.openweathermvvmretrofitdemo.POJOs.ForRoomDB.WeatherDataPOJO4RDB;
 import com.example.openweathermvvmretrofitdemo.POJOs.ForRoomDB.WeatherDataWeatherInstancePOJO4RDB;
 
 @Database(
     entities = {
         GeocodingDataPOJO4RDB.class,
-        WeatherDataPOJO4RDB.class,
         WeatherDataAuxPOJO4RDB.class,
         WeatherDataWeatherInstancePOJO4RDB.class
     },
-    version = 27,
+    version = 31,
     exportSchema = false
 )
 public abstract class MyRoomDatabase extends RoomDatabase {

@@ -3,6 +3,7 @@ package com.example.openweathermvvmretrofitdemo.POJOs.ForRoomDB;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 
 @Entity(
     tableName = "geocoding",
@@ -14,6 +15,9 @@ import androidx.room.ForeignKey;
         entity = WeatherDataAuxPOJO4RDB.class,
         onDelete = ForeignKey.CASCADE
     )
+    },
+    indices = {
+        @Index("aux_id")
     }
 )
 public class GeocodingDataPOJO4RDB {

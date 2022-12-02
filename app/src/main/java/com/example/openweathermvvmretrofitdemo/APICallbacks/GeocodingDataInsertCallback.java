@@ -54,18 +54,23 @@ public class GeocodingDataInsertCallback implements Callback<List<GeocodingDataP
           Observer<List<GeocodingDataPOJO4RDB>> o = new Observer<List<GeocodingDataPOJO4RDB>>() {
             @Override public void onChanged(List<GeocodingDataPOJO4RDB> geocodes) {
               if (geocodes.size() > 0) {
-                if (cbk_r_fun != null) cbk_r_fun.respond(cityGeocodingDataRF.name + " has already been added");
+                if (cbk_r_fun != null)
+                  cbk_r_fun.respond(cityGeocodingDataRF.name + " has already been added");
               } else {
                 try {
-                  getRepository().getWeatherByCityGeocode(cityGeocodingDataRF, cbk_r_fun);
-                } catch (Exception ignored) {
+                  // If the geocodes list is empty, that means this is a new geocode
+                  // In this case, pass it on to the weather retrieval and insertion process
+                  getRepository().getAndInsertWeatherByCityGeocode(cityGeocodingDataRF, cbk_r_fun);
+                } catch (Exception e) {
+                  e.printStackTrace();
                 }
               }
               g.removeObserver(this);
             }
           };
           g.observeForever(o);
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+          e.printStackTrace();
         }
 
       }

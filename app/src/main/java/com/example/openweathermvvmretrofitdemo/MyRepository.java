@@ -7,7 +7,7 @@ import androidx.lifecycle.LiveData;
 import com.example.openweathermvvmretrofitdemo.APICallbacks.CallbackResponseFunction;
 import com.example.openweathermvvmretrofitdemo.APICallbacks.GeocodingDataInsertCallback;
 import com.example.openweathermvvmretrofitdemo.APICallbacks.WeatherDataInsertCallback;
-import com.example.openweathermvvmretrofitdemo.APICallbacks.WeatherUpdateCallback;
+import com.example.openweathermvvmretrofitdemo.APICallbacks.WeatherDataUpdateCallback;
 import com.example.openweathermvvmretrofitdemo.DAOAsyncTasks.GWAsyncTaskParams;
 import com.example.openweathermvvmretrofitdemo.DAOAsyncTasks.MyDataDeleteAsyncTask;
 import com.example.openweathermvvmretrofitdemo.DAOAsyncTasks.MyDataInsertAsyncTask;
@@ -73,10 +73,6 @@ public class MyRepository {
     new MyDataInsertAsyncTask(myDAO).execute(new GWAsyncTaskParams(g, w));
   }
 
-  public void deleteWeatherData(WeatherDataAggregatePOJO4RDB w) {
-    new MyDataDeleteAsyncTask(myDAO).execute(w);
-  }
-
   public LiveData<List<GeocodingDataPOJO4RDB>> getWeatherGeocodingDataByWeatherAuxId(long auxId) {
     return myDAO.getWeatherGeocodingDataByWeatherAuxId(auxId);
   }
@@ -85,18 +81,23 @@ public class MyRepository {
     return myDAO.getGeocodingDataByCityCountry(cityName, countryCode);
   }
 
+  public void deleteWeatherData(WeatherDataAggregatePOJO4RDB w) {
+    new MyDataDeleteAsyncTask(myDAO).execute(w);
+  }
+
   public void searchForAndInsertCity(String searchPrompt, CallbackResponseFunction cbk_r_fun) {
     Call<List<GeocodingDataPOJO4RF>> call = geocodingDataJsonAPI.getData(searchPrompt, 1, Constants.API_KEY);
     call.enqueue(new GeocodingDataInsertCallback(cbk_r_fun));
   }
 
-  public void getWeatherByCityGeocode(GeocodingDataPOJO4RF cityGeocode, CallbackResponseFunction cbk_r_fun) {
+  public void getAndInsertWeatherByCityGeocode(GeocodingDataPOJO4RF cityGeocode, CallbackResponseFunction cbk_r_fun) {
     Call<WeatherDataPOJO4RF> call = weatherDataJsonAPI.getData(cityGeocode.lat, cityGeocode.lon, Constants.API_KEY);
     call.enqueue(new WeatherDataInsertCallback(cbk_r_fun, cityGeocode));
   }
 
   public void updateWeather(float lat, float lon, long prev_dt, CallbackResponseFunction cbk_r_fun) {
     Call<WeatherDataPOJO4RF> call = weatherDataJsonAPI.getData(lat, lon, Constants.API_KEY);
-    call.enqueue(new WeatherUpdateCallback(cbk_r_fun, prev_dt));
+    call.enqueue(new WeatherDataUpdateCallback(cbk_r_fun, prev_dt));
   }
+
 }

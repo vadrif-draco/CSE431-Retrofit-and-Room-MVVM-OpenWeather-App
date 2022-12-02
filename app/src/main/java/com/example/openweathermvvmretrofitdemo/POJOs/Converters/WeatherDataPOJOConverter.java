@@ -46,7 +46,7 @@ public final class WeatherDataPOJOConverter {
       weather_out.weatherInstanceId = weather_in.id;
       weather_out.description = weather_in.description;
       weather_out.main = weather_in.main;
-      weather_out.icon = weather_in.icon;
+      weather_out.weatherInstanceIconId = weather_in.icon;
       pojo_out.weather.add(weather_out);
     }
     return pojo_out;
@@ -88,7 +88,7 @@ public final class WeatherDataPOJOConverter {
       instance_out.id = instance_in.weatherInstanceId;
       instance_out.description = instance_in.description;
       instance_out.main = instance_in.main;
-      instance_out.icon = instance_in.icon;
+      instance_out.icon = instance_in.weatherInstanceIconId;
       pojo_out.weather.add(instance_out);
     }
     return pojo_out;
