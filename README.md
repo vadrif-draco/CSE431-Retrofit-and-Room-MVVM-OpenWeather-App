@@ -395,5 +395,27 @@ There is currently a bug where a city may get disassociated with its respective 
 # Videos
 
 
+https://user-images.githubusercontent.com/55457021/205380010-24e80586-87b4-4e65-a258-01e7bf895b92.mp4
 
-To be uploaded
+This video shows removal of all added cities then adding four new ones
+
+
+https://user-images.githubusercontent.com/55457021/205379663-29f56409-7ef3-4b50-80c1-62d7216ece9e.mp4
+
+This video shows how internal update interval is enforced vs. when no new data is available at the API end even if the update interval has passed
+
+
+https://user-images.githubusercontent.com/55457021/205379744-b4209ef3-b7a9-4d47-b586-b9f3127c34e6.mp4
+
+This video shows a normal update operation with internal update interval passed and API has new data
+
+
+https://user-images.githubusercontent.com/55457021/205380098-65b2a2f1-2e99-4872-ae23-9c2379f730b3.mp4
+
+This video shows the handling of attempt to add already-added cities
+
+
+https://user-images.githubusercontent.com/55457021/205380119-820ed2ef-6408-41a4-bece-5e2a913cae6b.mp4
+
+This video shows normal update operations on all existing cities
+
