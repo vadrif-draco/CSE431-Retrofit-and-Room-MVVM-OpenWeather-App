@@ -1,0 +1,71 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2639
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 HelveticaNeue;\f1\fnil\fcharset0 Monaco;}
+{\colortbl;\red255\green255\blue255;\red34\green45\blue53;\red255\green255\blue255;\red242\green242\blue242;
+\red236\green186\blue16;}
+{\*\expandedcolortbl;;\cssrgb\c17647\c23137\c27059;\cssrgb\c100000\c100000\c100000;\cssrgb\c96078\c96078\c96078;
+\cssrgb\c94510\c76863\c5882;}
+\margl1440\margr1440\vieww10560\viewh7800\viewkind0
+\deftab720
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f0\fs32 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 In order to use\'a0androidx libraries, you need to set the dependencies in your gradle build script as follows:\
+\pard\pardeftab720\partightenfactor0
+
+\f1\fs18 \cf2 \cb4 dependencies \{\cb1 \
+\
+\cb4     implementation 'androidx.appcompat:appcompat:1.5.1'\cb1 \
+\cb4     implementation 'com.google.android.material:material:1.7.0'\cb1 \
+\cb4     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'\cb1 \
+\cb4     testImplementation 'junit:junit:4.13.2'\cb1 \
+\cb4     androidTestImplementation 'androidx.test.ext:junit:1.1.4'\cb1 \
+\cb4     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb5     def room_version = "2.4.3"\cb1 \
+\cb5     def lifecycle_version = "2.4.0-alpha02"\cb1 \
+\
+\cb5     implementation "androidx.room:room-runtime:$room_version"\cb1 \
+\cb5     annotationProcessor "androidx.room:room-compiler:$room_version"\cb1 \
+\cb5     // Lifecycle components\cb1 \
+\cb5     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"\cb1 \
+\cb5     implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb4 \}\cb1 \
+\
+\cb4 You also need to add the following javaCompileOptions to your default configuration in the gradle build as follows:\cb1 \
+\
+\cb4 defaultConfig \{\cb1 \
+\cb4     applicationId "com.example.roomdemo202"\cb1 \
+\cb4     minSdk 21\cb1 \
+\cb4     targetSdk 32\cb1 \
+\cb4     versionCode 1\cb1 \
+\cb4     versionName "1.0"\cb1 \
+\
+\cb4     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"\cb1 \
+\cb4     \cb5 javaCompileOptions \{\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb5         annotationProcessorOptions \{\cb1 \
+\cb5             arguments += [\cb1 \
+\cb5                     "room.schemaLocation":"$projectDir/schemas".toString(),\cb1 \
+\cb5                     "room.incremental":"true",\cb1 \
+\cb5                     "room.expandProjection":"true"]\cb1 \
+\cb5         \}\cb1 \
+\cb5     \}\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb4 \}\cb1 \
+\
+\cb4 Once you sync your project, you will be able to use androidx libraries in your app for Room DB implementation using MVVM.\cb1 \
+\
+\cb4 Unfortunately, Google document at {\field{\*\fldinst{HYPERLINK "https://developer.android.com/codelabs/android-training-livedata-viewmodel?index=..%2F..%2Fandroid-training#0"}}{\fldrslt \ul https://developer.android.com/codelabs/android-training-livedata-viewmodel?index=..%2F..%2Fandroid-training#0\
+Links to an external site.\cb1 \ulnone \
+}}\pard\pardeftab720\partightenfactor0
+\cf2 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb4 is outdated and it's not using androidx library although it's \cb5 Last updated Jul 25, 2022\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb5 Now, once you use androidx, there will be few changes that you have to make in the code. Please follow the tutorial to understand the concepts but check my code and make sure you use my code to create your workspace.\cb4 \
+}
